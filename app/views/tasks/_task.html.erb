@@ -1,8 +1,9 @@
-<%#= form_with model: task, class: "list-group-item col-md-12", data: {remote: true} do |form| %>
 <div class="list-group-item col-md-12">
-    <%= fields_for task do |task_form| %>
+    <%= fields_for "tasks[][]", task do |task_form| %>
         <%= task_form.hidden_field(:id) %>
         <%= task_form.hidden_field(:position) %>
+        <%= task_form.hidden_field(:created_at) %>
+        <%= task_form.hidden_field(:updated_at) %>
 
         <div class="form-group">
             <%= task_form.label :title %><br>
@@ -17,4 +18,3 @@
         <%= link_to "Delete", task_path(task), method: :delete, class: "btn btn-danger", remote: true, data: {confirm: "Delete?"} %>
     <% end %>
 </div>
-<%# end %>

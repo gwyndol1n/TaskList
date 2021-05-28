@@ -52,7 +52,13 @@ class TasksController < ApplicationController
 	def upsert
 		respond_to do |format|
 			format.js {
+				if Task.upsert_all(tasks_params[0].values)
+					flash.now[:notice] = "Tasks updated."
+				else
+					flash.now[:alert] = "Tasks update failed."
+				end
 
+				render :update
 			}
 		end
 	end
@@ -61,6 +67,10 @@ class TasksController < ApplicationController
 
 	def task_params
 		params.require(:task).permit(:id, :position, :title, :is_done)
+	end
+
+	def tasks_params
+		params.require(:tasks)
 	end
 
 	def find_task

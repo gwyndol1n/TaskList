@@ -4,10 +4,10 @@
     <%# render tasks as a collection %>
     <%= form_tag tasks_upsert_path, data: {remote: true} do |f| %>
         <div id="tasks" class="list-group">
-            <%= render @tasks, main_form: f %>
+            <%= render @tasks, locals: {main_form: f} %>
         </div>
         <br>
     
-    <%= button_tag "Save", class: "btn btn-success" %>
+        <%= button_tag "Save", class: "btn btn-success" %>
     <% end %>
 </div>

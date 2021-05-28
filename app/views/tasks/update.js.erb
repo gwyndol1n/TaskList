@@ -1,1 +1,2 @@
-$("#tasks").html("<%= j (render Task.all.order(position: :asc)) %>");
+$("#tasks").html("<%= j (render Task.default_sort) %>");
+$("#flash_container").html("<%= j (render partial: 'layouts/flashes') %>"
