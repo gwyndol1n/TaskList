@@ -1,10 +1,6 @@
-<h1>Tasks</h1>
+<h1 class='text-center'>Tasks</h1>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <%= task.title %>
-    </li>
-  <% end %>
-</ul>
-
+<div id="tasks" class="list-group container">
+    <%# render tasks as a collection %>
+    <%= render @tasks %> 
+</div>

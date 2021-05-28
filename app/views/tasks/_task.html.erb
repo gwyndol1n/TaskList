@@ -1,0 +1,21 @@
+<%= form_with model: task, class: "list-group-item col-md-12" do |form| %>
+    <%= form.hidden_field(:position) %>
+    <div>
+        <%= form.label :title %><br>
+        <%= form.text_field :title %>
+        <% task.errors.full_messages_for(:title).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <div>
+        <%= form.label :is_done %><br>
+        <%= form.check_box :is_done %>
+        <% task.errors.full_messages_for(:is_done).each do |message| %>
+            <div><%= message %></div>
+        <% end %>
+    </div>
+
+    <%= form.submit "Save", class: "btn btn-success" %>
+    <%= form.button "Delete", class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>

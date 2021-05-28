@@ -7,7 +7,19 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+import "../stylesheets/application"
+
+// require extra JS
+require("jquery")
+require("jquery-ui")
+require("bootstrap")
+require("./views/tasks")
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// auto-load widgets if necessary
+// document.addEventListener("turbolinks:load", function () {
+
+// })
