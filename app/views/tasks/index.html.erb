@@ -1,6 +1,13 @@
-<h1 class='text-center'>Tasks</h1>
+<div class="container">
+    <h1 class='text-center'>Tasks</h1>
 
-<div id="tasks" class="list-group container">
     <%# render tasks as a collection %>
-    <%= render @tasks %> 
+    <%= form_tag tasks_upsert_path, data: {remote: true} do |f| %>
+        <div id="tasks" class="list-group">
+            <%= render @tasks, main_form: f %>
+        </div>
+        <br>
+    
+    <%= button_tag "Save", class: "btn btn-success" %>
+    <% end %>
 </div>

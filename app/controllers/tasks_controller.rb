@@ -1,27 +1,71 @@
 class TasksController < ApplicationController
-  def index
-    @tasks = Task.all
-  end
+	# find task based on ID provided for these methods
+	before_action :find_task, only: [:destroy, :update]
 
-  def create
-    @task = Task.new(task_params)
+	def index
+		@tasks = Task.all.order(position: :asc)
+	end
 
-    if @task.save
-      redirect_to @task
-    else
-      render :new  
-    end
-  end
+	def create
+		@task = Task.new(task_params)
 
-  def destroy
-  end
+		respond_to do |format|
+			format.js {
+				if @task.save
+					flash.now[:notice] = "Task created."
+				else
+					flash.now[:alert] = "Task creation failed."
+				end
+			}
+		end
+	end
 
-  def update
-  end
+	def destroy
+		respond_to do |format|
+			format.js {
+				if @task.destroy
+					flash.now[:notice] = "Task deleted."
+				else
+					flash.now[:alert] = "Task deletion failed."
+				end
 
-  private
+				render :update
+			}
+		end
+		
+	end
 
-  def task_params
-    params.require(:task).permit(:position, :title, :is_done)
-  end
+	def update
+		respond_to do |format|
+			format.js {
+				if @task.update(task_params)
+					flash.now[:notice] = "Task updated."
+				else
+					flash.now[:alert] = "Task update failed."
+				end
+
+				render :update
+			}
+		end
+	end
+
+	def upsert
+		respond_to do |format|
+			format.js {
+
+			}
+		end
+	end
+
+	private
+
+	def task_params
+		params.require(:task).permit(:id, :position, :title, :is_done)
+	end
+
+	def find_task
+		if params[:id]
+			@task = Task.find(params[:id])
+		end
+	end
 end

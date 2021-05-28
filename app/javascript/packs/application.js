@@ -15,6 +15,9 @@ require("jquery-ui")
 require("bootstrap")
 require("./views/tasks")
 
+// allow for jQuery usage in views
+global.$ = jQuery;
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

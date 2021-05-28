@@ -1,21 +1,20 @@
-<%= form_with model: task, class: "list-group-item col-md-12" do |form| %>
-    <%= form.hidden_field(:position) %>
-    <div>
-        <%= form.label :title %><br>
-        <%= form.text_field :title %>
-        <% task.errors.full_messages_for(:title).each do |message| %>
-            <div><%= message %></div>
-        <% end %>
-    </div>
+<%#= form_with model: task, class: "list-group-item col-md-12", data: {remote: true} do |form| %>
+<div class="list-group-item col-md-12">
+    <%= fields_for task do |task_form| %>
+        <%= task_form.hidden_field(:id) %>
+        <%= task_form.hidden_field(:position) %>
 
-    <div>
-        <%= form.label :is_done %><br>
-        <%= form.check_box :is_done %>
-        <% task.errors.full_messages_for(:is_done).each do |message| %>
-            <div><%= message %></div>
-        <% end %>
-    </div>
+        <div class="form-group">
+            <%= task_form.label :title %><br>
+            <%= task_form.text_field :title, class: 'form-control' %>
+        </div>
 
-    <%= form.submit "Save", class: "btn btn-success" %>
-    <%= form.button "Delete", class: "btn btn-danger", method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
+        <div class="form-group">
+            <%= task_form.label :is_done %><br>
+            <%= task_form.check_box :is_done, class: 'form-check-input' %>
+        </div>
+        <br>
+        <%= link_to "Delete", task_path(task), method: :delete, class: "btn btn-danger", remote: true, data: {confirm: "Delete?"} %>
+    <% end %>
+</div>
+<%# end %>
