@@ -1,8 +1,8 @@
-<% if alert || notice || flash[:pending] %>
+<% if flash %>
   <% if alert %>
     <div class="row">
       <div class="col-md-12">
-        <div class="alert alert-danger custom-alert-danger" style="">
+        <div class="alert alert-error">
           <button type="button" class="close" data-dismiss="alert">&times;</button>
           <i class="glyph-icon icon-exclamation-circle"></i>&nbsp;<%= alert.to_s.html_safe %>
         </div>
@@ -11,37 +11,8 @@
   <% end %>
 
   <% if notice %>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-info custom-alert-info">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <i class="glyph-icon icon-exclamation-circle" style="color: #31708F !important;"></i>&nbsp;<%= notice.to_s.html_safe %>
-        </div>
+      <div class="alert alert-info">
+        <%= flash[:notice].to_s.html_safe %>
       </div>
-    </div>
-  <% end %>
-
-  <% if flash[:pending] %>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="alert alert-info custom-alert-info">
-          <button type="button" class="close" data-dismiss="alert">&times;</button>
-          <span class="alertLoader small" style="color: #31708F !important;"></span>&nbsp;<%= flash[:pending].to_s.html_safe %>
-        </div>
-      </div>
-    </div>
-  <% end %>
-<% else %>
-  <% flash.each do |key, value| %>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-<%= key %> custom-alert-success">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <i class="glyph-icon icon-exclamation-circle" style="color: #31708F !important;"></i>&nbsp;<%= value.to_s.html_safe %>
-          </div>
-        </div>
-      </div>
-    </div>
   <% end %>
 <% end %>

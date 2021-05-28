@@ -1,13 +1,22 @@
 class TasksController < ApplicationController
 	# find task based on ID provided for these methods
 	before_action :find_task, only: [:destroy, :update]
+	before_action :set_tasks, only: [:index, :new]
 
 	def index
-		@tasks = Task.all.order(position: :asc)
+		
+	end
+
+	def new
+		respond_to do |format|
+			format.js {
+				render :update
+			}
+		end
 	end
 
 	def create
-		@task = Task.new(task_params)
+		@task = Task.new
 
 		respond_to do |format|
 			format.js {
@@ -16,6 +25,7 @@ class TasksController < ApplicationController
 				else
 					flash.now[:alert] = "Task creation failed."
 				end
+				render :update
 			}
 		end
 	end
@@ -32,7 +42,6 @@ class TasksController < ApplicationController
 				render :update
 			}
 		end
-		
 	end
 
 	def update
@@ -52,7 +61,7 @@ class TasksController < ApplicationController
 	def upsert
 		respond_to do |format|
 			format.js {
-				if Task.upsert_all(tasks_params[0].values)
+				if Task.upsert_all(tasks_params.values)
 					flash.now[:notice] = "Tasks updated."
 				else
 					flash.now[:alert] = "Tasks update failed."
@@ -77,5 +86,9 @@ class TasksController < ApplicationController
 		if params[:id]
 			@task = Task.find(params[:id])
 		end
+	end
+
+	def set_tasks
+		@tasks = Task.all.default_sort
 	end
 end

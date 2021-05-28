@@ -1,5 +1,5 @@
 <div class="list-group-item col-md-12">
-    <%= fields_for "tasks[][]", task do |task_form| %>
+    <%= fields_for "tasks[]", task do |task_form| %>
         <%= task_form.hidden_field(:id) %>
         <%= task_form.hidden_field(:position) %>
         <%= task_form.hidden_field(:created_at) %>

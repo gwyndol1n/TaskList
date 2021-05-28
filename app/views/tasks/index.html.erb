@@ -2,12 +2,19 @@
     <h1 class='text-center'>Tasks</h1>
 
     <%# render tasks as a collection %>
-    <%= form_tag tasks_upsert_path, data: {remote: true} do |f| %>
+    <%= form_with url: tasks_upsert_path, data: {remote: true} do |f| %>
         <div id="tasks" class="list-group">
-            <%= render @tasks, locals: {main_form: f} %>
+            <%= render @tasks %>
         </div>
         <br>
-    
-        <%= button_tag "Save", class: "btn btn-success" %>
+
+        <div class="row">
+            <div class="col-md-6">
+                <%= link_to "Add", tasks_path, remote: true, method: :post, class: "btn btn-info" %>
+            </div>
+            <div class="col-md-6">
+                <%= f.button "Save", class: "btn btn-success" %>
+            </div>
+        </div>
     <% end %>
 </div>
